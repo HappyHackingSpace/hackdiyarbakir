@@ -45,12 +45,12 @@ export default function Component() {
       ctx.fillStyle = 'white'
       ctx.save()
       
-      const logoHeight = isMobile ? 30 : 60
+      const logoHeight = isMobile ? 25 : 60
       const awsLogoWidth = logoHeight * (283 / 140) // Maintain aspect ratio
       
-      // Adjust logo position to be more to the left and top
-      const leftOffset = canvas.width / 3 // Move to 1/3 of the canvas width instead of center
-      const topOffset = canvas.height / 3 // Move to 1/3 of the canvas height instead of center
+      // Adjust logo position based on screen size
+      const leftOffset = isMobile ? canvas.width * 0.2 : canvas.width / 3 // Even more to the left on mobile
+      const topOffset = isMobile ? canvas.height * 0.3 : canvas.height / 3 // More to the top on mobile
       ctx.translate(leftOffset - (awsLogoWidth / 2), topOffset - (logoHeight / 2))
 
       // Draw AWS logo only
@@ -80,10 +80,10 @@ export default function Component() {
         const y = Math.floor(Math.random() * canvas.height)
 
         if (data[(y * canvas.width + x) * 4 + 3] > 128) {
-          const logoHeight = isMobile ? 30 : 60
+          const logoHeight = isMobile ? 25 : 60
           const awsLogoWidth = logoHeight * (283 / 140)
-          const leftOffset = canvas.width / 3
-          const topOffset = canvas.height / 3
+          const leftOffset = isMobile ? canvas.width * 0.2 : canvas.width / 3 // Match the change in createTextImage
+          const topOffset = isMobile ? canvas.height * 0.3 : canvas.height / 3 // Match the change in createTextImage
           return {
             x: x,
             y: y,
@@ -234,7 +234,7 @@ export default function Component() {
         className="w-full h-full absolute top-0 left-0 touch-none"
         aria-label="Interactive particle effect with Vercel and AWS logos"
       />
-      <div className="absolute bottom-[100px] text-center z-10">
+      <div className="absolute bottom-[100px] md:bottom-[100px] bottom-[40%] w-full md:w-auto text-center z-10">
         <p className="font-mono text-gray-400 text-xs sm:text-base md:text-sm ">
           Made with ❤️ by{' '}
           <a 
